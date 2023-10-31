@@ -1,11 +1,14 @@
 import './App.scss'
+import Header from './components/Header/Header'
+import QuotesTable from './components/QuotesTable/QuotesTable'
 
 function App() {
 
   return (
-    <>
-      <h2>Interbanking Challenge</h2>
-    </>
+    <div className="hola">
+      <Header />
+      <QuotesTable />
+    </div>
   )
 }
 
