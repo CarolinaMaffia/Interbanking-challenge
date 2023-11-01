@@ -9,7 +9,7 @@ interface QuotesProviderProps {
 const quotesArray: QuoteType[] = [
     {
         quote: "Test",
-        author: 'Lorem ipsum'
+        author: 'Author'
     },
     {
         quote: "TestQuote",
@@ -46,7 +46,7 @@ export const QuotesProvider = ({ children }: QuotesProviderProps) => {
 
     const handleQuoteSearch = (quoteSearch: string) => {
         const filteredQuotes: QuoteType[] =  quotes.filter((item) => {
-            return item.quote.toLowerCase().includes(quoteSearch.toLowerCase());
+            return item.quote.toLowerCase().includes(quoteSearch.toLowerCase()) || item.author.toLowerCase().includes(quoteSearch.toLowerCase());
         })
         setSearchedQuotes(filteredQuotes);
     }
