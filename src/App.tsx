@@ -5,7 +5,7 @@ import QuotesTable from './components/QuotesTable/QuotesTable'
 function App() {
 
   return (
-    <div className="hola">
+    <div className="App">
       <Header />
       <QuotesTable />
     </div>
