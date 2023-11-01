@@ -1,0 +1,24 @@
+@import '../../main.scss';
+
+.search-container {
+   display: flex;
+   align-items: center;
+   border-radius: 20px;
+   padding: 5px;
+
+   @include tablet {
+    width: 50%;
+   }
+
+   .search-input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    width: 250px;
+
+    @include tablet {
+        width: 100%;
+    }
+  }
+}
