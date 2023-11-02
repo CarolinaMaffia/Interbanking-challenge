@@ -1,4 +1,5 @@
 export interface QuoteType {
     quote: string,
-    author: string
+    author: string,
+    id: number,
 }
