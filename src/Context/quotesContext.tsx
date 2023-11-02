@@ -8,15 +8,15 @@ interface QuotesProviderProps {
 
 const quotesArray: QuoteType[] = [
     {
+        quote: "The truth. It is a beautiful and terrible thing, and should therefore be treated with great caution.",
+        author: 'Albus Dumbledore'
+    },
+    {
+        quote: "I solemnly swear that I am up to no good.",
+        author: 'George Weasley'
+    },
+    {
         quote: "Test",
-        author: 'Author'
-    },
-    {
-        quote: "TestQuote",
-        author: 'Lorem ipsum'
-    },
-    {
-        quote: "Testtt",
         author: 'Lorem ipsum'
     },
     {
@@ -36,6 +36,7 @@ const quotesArray: QuoteType[] = [
 const initialValue: QuotesContextType = {
     handleQuoteSearch: () => {},
     searchedQuotes: quotesArray,
+    addNewQuote: () => {},
 }
 
 const QuotesContext = createContext<QuotesContextType>(initialValue);
@@ -49,9 +50,18 @@ export const QuotesProvider = ({ children }: QuotesProviderProps) => {
             return item.quote.toLowerCase().includes(quoteSearch.toLowerCase()) || item.author.toLowerCase().includes(quoteSearch.toLowerCase());
         })
         setSearchedQuotes(filteredQuotes);
-    }
+    };
 
-    const quotesContextData: QuotesContextType = { handleQuoteSearch, searchedQuotes }
+    const addNewQuote = (quote: string, author: string) => {
+        const quotesAux = quotes;
+        if(quote && author) {
+            quotesAux.unshift({ quote, author });
+            setQuotes(quotesAux);
+            setSearchedQuotes(quotesAux);
+        }
+    };
+
+    const quotesContextData: QuotesContextType = { handleQuoteSearch, searchedQuotes, addNewQuote }
 
     return (
         <QuotesContext.Provider value={quotesContextData} >
