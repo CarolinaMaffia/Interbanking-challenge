@@ -1,0 +1,78 @@
+@import '../../main.scss';
+
+
+.modal-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+    .submit-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .input-container{
+          display: flex;
+          flex-direction: column;
+
+          .textarea {
+            width: 390px;
+            height: 100px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid $gray-border;
+            border-radius: 5px;
+            resize: none;
+    
+            &:focus {
+              border-color: $header;
+              box-shadow: $shadow-box 0px 5px 15px;
+            }
+    
+            @include mobile {
+              width: 90%;
+            }
+          }
+
+          .maxCharacterCount {
+            text-align: end;
+            font-size: 13px;
+          }
+
+                  
+        .author-input {
+          height: 10px;
+          border-radius: 8px;
+          padding: 10px;
+          border: 1px solid $gray-border;
+        }
+      }
+
+
+
+        .submit-button {
+            width: 80px;
+            padding: 0;
+            align-self: center;
+            background: $header;
+            border-radius: 999px;
+            box-shadow: $header 0 10px 20px -10px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 24px;
+            opacity: 1;
+            padding: 5px 15px;
+            width: fit-content;
+            border: 0;
+
+            &:disabled {
+              background-color: $gray-border;
+              color: $disabled-button-color;
+            }
+        }
+    }
+}
