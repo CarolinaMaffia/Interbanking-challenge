@@ -2,5 +2,6 @@ import { QuoteType } from "./QuoteType";
 
 export interface QuotesContextType {
     handleQuoteSearch: (quoteSearch: string) => void;
-    searchedQuotes: QuoteType[]
+    searchedQuotes: QuoteType[];
+    addNewQuote: (quote: string, author: string) => void;
 }
