@@ -8,7 +8,7 @@ import Modal from '../Modal/Modal';
 import AddQuotesModalContent from '../AddQuotesModalContent/AddQuotesModalContent';
 
 const QuotesTable = () => {
-    const { searchedQuotes, handleQuoteSearch, addNewQuote } = useContext<QuotesContextType>(QuotesContext);
+    const { searchedQuotes, handleQuoteSearch, addNewQuote, hasQuotes } = useContext<QuotesContextType>(QuotesContext);
     const [isModalOpen, setModalOpen] = useState(false);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +27,37 @@ const QuotesTable = () => {
         addNewQuote(quote, author);
         closeModal();
     };
+    
+    const showContent = () => {
+        if(!hasQuotes()) {
+            return (
+                <div className='content-container'> 
+                    <h3 className='no-cards-text'>Hello there! Add some of your favorites quotes here ✍️</h3>
+                </div> 
+            )
+        } else if(searchedQuotes.length === 0) {
+            return (
+                <div className='content-container'> 
+                    <h3 className='no-cards-text'>There are no matching quotes for the search. 🙅🏻‍♀️ </h3>
+                </div>
+            );
+        } else {
+            return (
+                <div className="content-container">
+                    {searchedQuotes.map((quote, i) => {
+                        return (
+                            <QuoteCard 
+                                quote={quote.quote} 
+                                author={quote.author} 
+                                key={i}
+                                id={quote.id}
+                            />
+                        );
+                    })};
+                </div>
+            )
+        }
+    }
 
     return (
         <div className="quotes-table-container">
@@ -37,17 +68,7 @@ const QuotesTable = () => {
             <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <AddQuotesModalContent handleSubmitCallback={handleSubmitCallback}/>
             </Modal>
-           <div className="quotes">
-            {searchedQuotes.map((quote, i) => {
-                return (
-                    <QuoteCard 
-                        quote={quote.quote} 
-                        author={quote.author} 
-                        key={i}
-                    />
-                )
-            })}
-           </div>
+           {showContent()}
         </div>
     );
 };
