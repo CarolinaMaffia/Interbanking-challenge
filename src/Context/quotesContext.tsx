@@ -1,48 +1,15 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { QuotesContextType } from '../types/QuotesContextType';
 import { QuoteType } from '../types/QuoteType';
+import { getQuotes, saveQuotes } from '../repository/persistency';
 
 interface QuotesProviderProps {
     children: JSX.Element,
 }
 
-const quotesArray: QuoteType[] = [
-    {
-        quote: "The truth. It is a beautiful and terrible thing, and should therefore be treated with great caution.",
-        author: 'Albus Dumbledore',
-        id: 1,
-    },
-    {
-        quote: "I solemnly swear that I am up to no good.",
-        author: 'George Weasley',
-        id: 2,
-
-    },
-    {
-        quote: "Test",
-        author: 'Lorem ipsum',
-        id: 3,
-    },
-    {
-        quote: "Long test Long test Long test Long test",
-        author: 'Lorem ipsum',
-        id: 4,
-    },
-    {
-        quote: "Kirby",
-        author: 'Lorem ipsum',
-        id: 5,
-    },
-    {
-        quote: "Haru",
-        author: 'Lorem ipsum',
-        id: 6,
-    },
-]
-
 const initialValue: QuotesContextType = {
     handleQuoteSearch: () => {},
-    searchedQuotes: quotesArray,
+    searchedQuotes: [],
     addNewQuote: () => {},
     deleteQuote: () => {},
     hasQuotes: () => false,
@@ -51,9 +18,26 @@ const initialValue: QuotesContextType = {
 const QuotesContext = createContext<QuotesContextType>(initialValue);
 
 export const QuotesProvider = ({ children }: QuotesProviderProps) => {
-    const [quotes, setQuotes] = useState<QuoteType[]>(quotesArray);
-    const [searchedQuotes, setSearchedQuotes] = useState<QuoteType[]>(quotesArray);
-    const [quoteId, setQuoteId] = useState<number>(0);
+    const [quotes, setQuotes] = useState<QuoteType[]>([]);
+    const [searchedQuotes, setSearchedQuotes] = useState<QuoteType[]>([]);
+
+    useEffect(() => {
+        const savedQuotes = getQuotes();
+        setSearchedQuotes(savedQuotes);
+        setQuotes(savedQuotes);
+    }, [])
+
+    const getMaxId = () => {
+        const idArray = quotes.map((quote) => {
+            return quote.id
+        });
+
+        if(idArray.length === 0) {
+            return 0;
+        }
+        const maxId = Math.max(...idArray);
+        return maxId;
+    }
 
     const handleQuoteSearch = (quoteSearch: string) => {
         const filteredQuotes: QuoteType[] =  quotes.filter((item) => {
@@ -63,8 +47,7 @@ export const QuotesProvider = ({ children }: QuotesProviderProps) => {
     };
 
     const generateQuoteId = () => {
-        const newId = quoteId + 1;
-        setQuoteId(newId);
+        const newId = getMaxId() + 1;
         return newId;
     }
 
@@ -75,6 +58,7 @@ export const QuotesProvider = ({ children }: QuotesProviderProps) => {
             quotesAux.unshift({ quote, author, id });
             setQuotes(quotesAux);
             setSearchedQuotes(quotesAux);
+            saveQuotes(quotesAux);
         }
     };
 
@@ -82,6 +66,7 @@ export const QuotesProvider = ({ children }: QuotesProviderProps) => {
         const filteredQuotes = quotes.filter((item) => item.id !== id);
         setQuotes(filteredQuotes);
         setSearchedQuotes(filteredQuotes);
+        saveQuotes(filteredQuotes);
     };
 
     const hasQuotes = () => {

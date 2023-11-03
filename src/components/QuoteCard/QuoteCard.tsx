@@ -2,7 +2,7 @@ import './QuoteCard.scss';
 import TrashCanIcon from '../../assets/trashcan.svg';
 import { useContext } from 'react';
 import { QuotesContextType } from '../../types/QuotesContextType';
-import QuotesContext from '../../Context/quotesContext';
+import QuotesContext from '../../Context/QuotesContext';
 
 interface QuoteCardProps {
     quote: string,

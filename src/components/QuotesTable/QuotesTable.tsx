@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import QuoteCard from '../QuoteCard/QuoteCard';
 import SearchBar from '../SearchBar/SearchBar';
 import './QuotesTable.scss';
-import QuotesContext from '../../Context/quotesContext';
+import QuotesContext from '../../Context/QuotesContext';
 import { QuotesContextType } from '../../types/QuotesContextType';
 import Modal from '../Modal/Modal';
 import AddQuotesModalContent from '../AddQuotesModalContent/AddQuotesModalContent';
@@ -53,7 +53,7 @@ const QuotesTable = () => {
                                 id={quote.id}
                             />
                         );
-                    })};
+                    })}
                 </div>
             )
         }

@@ -1,7 +1,7 @@
-import './App.scss'
-import { QuotesProvider } from './Context/quotesContext'
-import Header from './components/Header/Header'
-import QuotesTable from './components/QuotesTable/QuotesTable'
+import './App.scss';
+import { QuotesProvider } from './Context/QuotesContext';
+import Header from './components/Header/Header';
+import QuotesTable from './components/QuotesTable/QuotesTable';
 
 function App() {
 
